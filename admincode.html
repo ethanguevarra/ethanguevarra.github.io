@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>FORMS</strong>
+
+namespace softdes
+{
+	partial class AdminDashboard
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		#region Windows Form Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboard));
+            this.footer = new System.Windows.Forms.Panel();
+            this.labelfooter = new System.Windows.Forms.Label();
+            this.adminmenu = new System.Windows.Forms.MenuStrip();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sellerAndCustomerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labeluser = new System.Windows.Forms.Label();
+            this.labellogs = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.sellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.footer.SuspendLayout();
+            this.adminmenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // footer
+            // 
+            this.footer.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.footer.Controls.Add(this.labelfooter);
+            this.footer.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.footer.Location = new System.Drawing.Point(0, 629);
+            this.footer.Name = "footer";
+            this.footer.Size = new System.Drawing.Size(1117, 6);
+            this.footer.TabIndex = 0;
+            // 
+            // labelfooter
+            // 
+            this.labelfooter.AutoSize = true;
+            this.labelfooter.Font = new System.Drawing.Font("Morning Breeze", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelfooter.ForeColor = System.Drawing.Color.Gray;
+            this.labelfooter.Location = new System.Drawing.Point(548, 7);
+            this.labelfooter.Name = "labelfooter";
+            this.labelfooter.Size = new System.Drawing.Size(338, 25);
+            this.labelfooter.TabIndex = 0;
+            this.labelfooter.Text = "guevarra . ladera . martinez . salamanque";
+            this.labelfooter.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // adminmenu
+            // 
+            this.adminmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sellToolStripMenuItem,
+            this.usersToolStripMenuItem,
+            this.categoryToolStripMenuItem,
+            this.productsToolStripMenuItem,
+            this.sellerAndCustomerToolStripMenuItem,
+            this.inventoryToolStripMenuItem,
+            this.transactionsToolStripMenuItem});
+            this.adminmenu.Location = new System.Drawing.Point(0, 0);
+            this.adminmenu.Name = "adminmenu";
+            this.adminmenu.Size = new System.Drawing.Size(1117, 25);
+            this.adminmenu.TabIndex = 1;
+            this.adminmenu.Text = "menuStrip1";
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(53, 21);
+            this.usersToolStripMenuItem.Text = "Users";
+            this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
+            // 
+            // categoryToolStripMenuItem
+            // 
+            this.categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
+            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
+            this.categoryToolStripMenuItem.Text = "Category";
+            this.categoryToolStripMenuItem.Click += new System.EventHandler(this.categoryToolStripMenuItem_Click);
+            // 
+            // productsToolStripMenuItem
+            // 
+            this.productsToolStripMenuItem.Name = "productsToolStripMenuItem";
+            this.productsToolStripMenuItem.Size = new System.Drawing.Size(71, 21);
+            this.productsToolStripMenuItem.Text = "Products";
+            this.productsToolStripMenuItem.Click += new System.EventHandler(this.productsToolStripMenuItem_Click);
+            // 
+            // sellerAndCustomerToolStripMenuItem
+            // 
+            this.sellerAndCustomerToolStripMenuItem.Name = "sellerAndCustomerToolStripMenuItem";
+            this.sellerAndCustomerToolStripMenuItem.Size = new System.Drawing.Size(138, 21);
+            this.sellerAndCustomerToolStripMenuItem.Text = "Seller and Customer";
+            this.sellerAndCustomerToolStripMenuItem.Click += new System.EventHandler(this.sellerAndCustomerToolStripMenuItem_Click);
+            // 
+            // inventoryToolStripMenuItem
+            // 
+            this.inventoryToolStripMenuItem.Name = "inventoryToolStripMenuItem";
+            this.inventoryToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
+            this.inventoryToolStripMenuItem.Text = "Inventory";
+            this.inventoryToolStripMenuItem.Click += new System.EventHandler(this.inventoryToolStripMenuItem_Click);
+            // 
+            // transactionsToolStripMenuItem
+            // 
+            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(92, 21);
+            this.transactionsToolStripMenuItem.Text = "Transactions";
+            this.transactionsToolStripMenuItem.Click += new System.EventHandler(this.transactionsToolStripMenuItem_Click);
+            // 
+            // labeluser
+            // 
+            this.labeluser.AutoSize = true;
+            this.labeluser.Font = new System.Drawing.Font("Monospac821 BT", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labeluser.Location = new System.Drawing.Point(12, 40);
+            this.labeluser.Name = "labeluser";
+            this.labeluser.Size = new System.Drawing.Size(48, 16);
+            this.labeluser.TabIndex = 2;
+            this.labeluser.Text = "User:";
+            // 
+            // labellogs
+            // 
+            this.labellogs.AutoSize = true;
+            this.labellogs.Font = new System.Drawing.Font("Monospac821 BT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labellogs.Location = new System.Drawing.Point(54, 40);
+            this.labellogs.Name = "labellogs";
+            this.labellogs.Size = new System.Drawing.Size(0, 16);
+            this.labellogs.TabIndex = 3;
+            this.labellogs.Click += new System.EventHandler(this.labellogs_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(393, 216);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(628, 255);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // sellToolStripMenuItem
+            // 
+            this.sellToolStripMenuItem.Name = "sellToolStripMenuItem";
+            this.sellToolStripMenuItem.Size = new System.Drawing.Size(40, 21);
+            this.sellToolStripMenuItem.Text = "Sell";
+            this.sellToolStripMenuItem.Click += new System.EventHandler(this.sellToolStripMenuItem_Click);
+            // 
+            // AdminDashboard
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1117, 635);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.labellogs);
+            this.Controls.Add(this.labeluser);
+            this.Controls.Add(this.footer);
+            this.Controls.Add(this.adminmenu);
+            this.MainMenuStrip = this.adminmenu;
+            this.Name = "AdminDashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "G";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminDashboard_FormClosed);
+            this.Load += new System.EventHandler(this.AdminDashboard_Load);
+            this.footer.ResumeLayout(false);
+            this.footer.PerformLayout();
+            this.adminmenu.ResumeLayout(false);
+            this.adminmenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+		}
+
+		#endregion
+
+		private System.Windows.Forms.Panel footer;
+		private System.Windows.Forms.Label labelfooter;
+		private System.Windows.Forms.MenuStrip adminmenu;
+		private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem categoryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem productsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem inventoryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
+		private System.Windows.Forms.Label labeluser;
+		private System.Windows.Forms.Label labellogs;
+		private System.Windows.Forms.ToolStripMenuItem sellerAndCustomerToolStripMenuItem;
+		private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem sellToolStripMenuItem;
+    }
+}
+
+
+
+
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>DATA ACCESS LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using softdes.BLL;
+
+
+namespace softdes.DAL
+{
+	class categoriesDAL
+	{
+		static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+		#region Select Method
+		public DataTable Select()
+		{
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT * FROM categoryDB";
+
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return dt;
+		}
+		#endregion
+		#region Insert New category
+		public bool Insert(categoriesBLL c)
+		{
+			bool isSuccess = false;
+
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				string sql = "INSERT INTO categoryDB (title, description, added_date, added_by) VALUES (@title, @description, @added_date, @added_by)";
+
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				cmd.Parameters.AddWithValue("@title", c.title);
+				cmd.Parameters.AddWithValue("@description", c.description);
+				cmd.Parameters.AddWithValue("@added_date", c.added_date);
+				cmd.Parameters.AddWithValue("@added_by", c.added_by);
+
+				conn.Open();
+
+				int rows = cmd.ExecuteNonQuery();
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return isSuccess;
+		}
+		#endregion
+		#region Update Method
+		public bool Update(categoriesBLL c)
+		{
+			bool isSuccess = false;
+
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				string sql = "UPDATE categoryDB SET title=@title, description=@description, added_date=@added_date, added_by=@added_by WHERE id=@id";
+
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				cmd.Parameters.AddWithValue("@title", c.title);
+				cmd.Parameters.AddWithValue("@description", c.description);
+				cmd.Parameters.AddWithValue("@added_date", c.added_date);
+				cmd.Parameters.AddWithValue("@added_by", c.added_by);
+				cmd.Parameters.AddWithValue("@id", c.id);
+
+				conn.Open();
+
+				int rows = cmd.ExecuteNonQuery();
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return isSuccess;
+		}
+
+		#endregion
+		#region delete category method
+		public bool Delete(categoriesBLL c)
+		{
+
+			bool isSuccess = false;
+
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				string sql = "DELETE FROM categoryDB WHERE id=@id";
+
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				cmd.Parameters.AddWithValue("@id", c.id);
+
+				conn.Open();
+
+				int rows = cmd.ExecuteNonQuery();
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return isSuccess;
+		}
+		#endregion
+		#region category search
+		public DataTable Search(string keywords)
+		{
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			DataTable dt = new DataTable();
+			
+
+			try
+			{
+				string sql = "SELECT * FROM categoryDB WHERE id LIKE '%"+keywords+"%' OR title LIKE '%"+keywords+"%' OR description LIKE '%"+keywords+"%'";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return dt;
+		}
+		#endregion 
+	}
+}
+
+
+<strong>BUSINESS LOGIC LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace softdes.BLL
+{
+	class categoriesBLL
+	{
+		public int id { get; set; }
+		public string title { get; set; }
+		public string description { get; set; }
+		public DateTime added_date { get; set; }
+		public int added_by { get; set; }
+	}
+}
+
+
+    </pre>
+  </body>
+</html>
