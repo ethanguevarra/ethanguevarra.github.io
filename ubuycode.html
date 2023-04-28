@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>DATA ACCESS LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using softdes.BLL;
+
+namespace softdes.DAL
+{
+	class transactionsDAL
+	{
+		static string myconnstring = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+		#region INERT METHOD
+		public bool Insert_Transaction(transactionsBLL t, out int transactionID)
+		{
+			bool isSuccess = false;
+			transactionID = -1;
+			SqlConnection conn = new SqlConnection(myconnstring);
+
+			try
+			{
+				string sql = "INSERT INTO transactDB (type, customer_shopID, total, transact_date, shippingfee, voucher_disc, added_by) VALUES (@type, @customer_shopID, @total, @transact_date, @shippingfee, @voucher_disc, @added_by); SELECT @@IDENTITY";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				cmd.Parameters.AddWithValue("@type", t.type);
+				cmd.Parameters.AddWithValue("@customer_shopID", t.customer_shopID);
+				cmd.Parameters.AddWithValue("@total", t.total);
+				cmd.Parameters.AddWithValue("@transact_date", t.transact_date);
+				cmd.Parameters.AddWithValue("@shippingfee", t.shippingfee);
+				cmd.Parameters.AddWithValue("@voucher_disc", t.voucher_disc);
+				cmd.Parameters.AddWithValue("@added_by", t.added_by);
+
+				conn.Open();
+
+				object o = cmd.ExecuteScalar();
+				if (o != null)
+				{
+					transactionID = int.Parse(o.ToString());
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return isSuccess;
+		}
+
+		#endregion
+		#region DISPLAY ALL TRANSACTIONS METHOD
+		public DataTable DisplayAllTransactions()
+		{
+			SqlConnection conn = new SqlConnection(myconnstring);
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT * FROM transactDB";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return dt;
+		}
+
+		#endregion
+		#region DISPLAY TRANSACTIONTYPE METHOD
+		public DataTable DisplayTransactionByType(string type)
+		{
+			SqlConnection conn = new SqlConnection(myconnstring);
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT * FROM transactDB WHERE type='"+type+"'";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return dt;
+		}
+
+		#endregion
+	}
+}
+
+
+<strong>BUSINESS LOGIC LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace softdes.BLL
+{
+	class transactiondetailBLL
+	{
+		public int id { get; set; }
+		public int prod_ID { get; set; }
+		public decimal rate { get; set; }
+		public decimal qty { get; set; }
+		public decimal total { get; set; }
+		public int customer_shopID { get; set; }
+		public DateTime added_date { get; set; }
+		public int added_by { get; set; }
+
+	}
+}
+
+
+    </pre>
+  </body>
+</html>

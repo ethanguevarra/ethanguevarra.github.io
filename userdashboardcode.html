@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>FORMS</strong>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using softdes.UI;
+
+namespace softdes
+{
+	public partial class UserDashboard : Form
+	{
+		public UserDashboard()
+		{
+			InitializeComponent();
+		}
+		public static string transactiontype;
+
+		private void labellogs_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void labeluser_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void footer_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void UserDashboard_Load(object sender, EventArgs e)
+		{
+			labellogs.Text = login.loggedin;
+		}
+
+		private void UserDashboard_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			login login = new login();
+			login.Show();
+			this.Hide();
+		}
+
+		private void sellerAndCustomerToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			deacust DeaCust = new deacust();
+			DeaCust.Show();
+		}
+
+		private void purchaseToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			transactiontype = "Purchase";
+			frmpurchaseandsales purchase = new frmpurchaseandsales();
+			purchase.Show();
+			
+		}
+
+		private void salesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			transactiontype = "Sales";
+			frmpurchaseandsales sales = new frmpurchaseandsales();
+			sales.Show();
+		}
+
+		private void inventoryToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			frminventory inventory = new frminventory();
+			inventory.Show();
+		}
+	}
+}
+
+
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>DATA ACCESS LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using softdes.BLL;
+
+namespace softdes.DAL
+{
+	class userDAL
+	{
+		static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+		#region Select Data from Database
+		public DataTable Select()
+		{
+			//static method to connect database
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			//hold the data from database
+			DataTable dt = new DataTable();
+			try
+			{
+				//sql query to get data from database
+				String sql = "Select * FROM usersDB";
+				//execute
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				//getting data from database
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				//database connection open
+				conn.Open();
+				//fill database table
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				//error
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				//end connection
+				conn.Close();
+			}
+			//return the value in database table
+			return dt;
+		}
+		#endregion
+		#region Insert Data in Database
+		public bool Insert(userBLL u)
+		{
+			bool isSuccess = false;
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				String sql = "INSERT INTO usersDB (firstname, lastname, email, username, password, contact, address, gender, user_type, added_date, added_by) VALUES (@firstname, @lastname, @email, @username, @password, @contact, @address, @gender, @user_type, @added_date, @added_by)";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				cmd.Parameters.AddWithValue("@firstname", u.firstname);
+				cmd.Parameters.AddWithValue("@lastname", u.lastname);
+				cmd.Parameters.AddWithValue("@email", u.email);
+				cmd.Parameters.AddWithValue("@username", u.username);
+				cmd.Parameters.AddWithValue("@password", u.password);
+				cmd.Parameters.AddWithValue("@contact", u.contact);
+				cmd.Parameters.AddWithValue("@address", u.address);
+				cmd.Parameters.AddWithValue("@gender", u.gender);
+				cmd.Parameters.AddWithValue("@user_type", u.user_type);
+				cmd.Parameters.AddWithValue("@added_date", u.added_date);
+				cmd.Parameters.AddWithValue("@added_by", u.added_by);
+
+				conn.Open();
+
+				int rows = cmd.ExecuteNonQuery();
+				//if the query is executed successfully then the value of  rows will be greater than 0 else it will be less than 0
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return isSuccess;
+		}
+		#endregion
+		#region Update database
+		public bool Update(userBLL u)
+		{
+			bool isSuccess = false;
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				string sql = "UPDATE usersDB SET firstname=@firstname, lastname=@lastname, email=@email, username=@username, password=@password, contact=@contact, address=@address, gender=@gender, user_type=@user_type, added_date=@added_date, added_by=@added_by WHERE id=@id";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				cmd.Parameters.AddWithValue("@firstname", u.firstname);
+				cmd.Parameters.AddWithValue("@lastname", u.lastname);
+				cmd.Parameters.AddWithValue("@email", u.email);
+				cmd.Parameters.AddWithValue("@username", u.username);
+				cmd.Parameters.AddWithValue("@password", u.password);
+				cmd.Parameters.AddWithValue("@contact", u.contact);
+				cmd.Parameters.AddWithValue("@address", u.address);
+				cmd.Parameters.AddWithValue("@gender", u.gender);
+				cmd.Parameters.AddWithValue("@user_type", u.user_type);
+				cmd.Parameters.AddWithValue("@added_date", u.added_date);
+				cmd.Parameters.AddWithValue("@added_by", u.added_by);
+				cmd.Parameters.AddWithValue("id", u.id);
+
+				conn.Open();
+
+				int rows = cmd.ExecuteNonQuery();
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return isSuccess;
+		}
+		#endregion
+		#region Delete Data from Database
+		public bool Delete(userBLL u)
+		{
+			bool isSuccess = false;
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				string sql = "DELETE FROM usersDB WHERE id=@id";
+
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				cmd.Parameters.AddWithValue("@id", u.id);
+				conn.Open();
+				int rows = cmd.ExecuteNonQuery();
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return isSuccess;
+		}
+		#endregion
+		#region Search from Database
+		public DataTable Search(string keywords)
+		{
+			//static method to connect database
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			//hold the data from database
+			DataTable dt = new DataTable();
+			try
+			{
+				//sql query to get data from database
+				String sql = "Select * FROM usersDB WHERE id LIKE '%"+keywords+"%' OR firstname LIKE '%"+keywords+ "%' OR lastname LIKE '%" + keywords + "%' OR username LIKE '%" + keywords + "%'";
+				//execute
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				//getting data from database
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				//database connection open
+				conn.Open();
+				//fill database table
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				//error
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				//end connection
+				conn.Close();
+			}
+			//return the value in database table
+			return dt;
+		}
+		#endregion
+		#region Getting username 
+		public userBLL GetIDFromUsername(string username)
+		{
+			userBLL u = new userBLL();
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT id from usersDB WHERE username = '" + username + "'";
+				SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+				conn.Open();
+				adapter.Fill(dt);
+				if (dt.Rows.Count > 0)
+				{
+					u.id = int.Parse(dt.Rows[0]["id"].ToString());
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return u;
+		}
+		#endregion
+	}
+}
+
+<strong>BUSINESS LOGIC LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace softdes.BLL
+{
+	class userBLL
+	{
+		public int id { get; set; }
+		public string firstname { get; set; }
+		public string lastname { get; set; }
+		public string email { get; set; }
+		public string username { get; set; }
+		public string password { get; set; }
+		public string contact { get; set; }
+		public string address { get; set; }
+		public string gender { get; set; }
+		public string user_type { get; set; }
+		public DateTime added_date { get; set; }
+		public int added_by { get; set; }
+	}
+}
+
+
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>FORMS</strong>
+
+namespace softdes.UI
+{
+	partial class frminventory
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		#region Windows Form Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frminventory));
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.titleinventory = new System.Windows.Forms.Label();
+			this.dgvproducts = new System.Windows.Forms.DataGridView();
+			this.lblcategory = new System.Windows.Forms.Label();
+			this.cmbcategory = new System.Windows.Forms.ComboBox();
+			this.btnall = new System.Windows.Forms.Button();
+			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgvproducts)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// panel1
+			// 
+			this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.panel1.Controls.Add(this.pictureBox1);
+			this.panel1.Controls.Add(this.titleinventory);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(996, 41);
+			this.panel1.TabIndex = 8;
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+			this.pictureBox1.Location = new System.Drawing.Point(958, 3);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(35, 35);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.pictureBox1.TabIndex = 1;
+			this.pictureBox1.TabStop = false;
+			this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+			// 
+			// titleinventory
+			// 
+			this.titleinventory.AutoSize = true;
+			this.titleinventory.Font = new System.Drawing.Font("Morning Breeze", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.titleinventory.ForeColor = System.Drawing.Color.Ivory;
+			this.titleinventory.Location = new System.Drawing.Point(480, 9);
+			this.titleinventory.Name = "titleinventory";
+			this.titleinventory.Size = new System.Drawing.Size(86, 25);
+			this.titleinventory.TabIndex = 0;
+			this.titleinventory.Text = "Inventory";
+			// 
+			// dgvproducts
+			// 
+			this.dgvproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvproducts.Location = new System.Drawing.Point(12, 101);
+			this.dgvproducts.Name = "dgvproducts";
+			this.dgvproducts.Size = new System.Drawing.Size(972, 360);
+			this.dgvproducts.TabIndex = 9;
+			// 
+			// lblcategory
+			// 
+			this.lblcategory.AutoSize = true;
+			this.lblcategory.Font = new System.Drawing.Font("Monospac821 BT", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblcategory.Location = new System.Drawing.Point(12, 67);
+			this.lblcategory.Name = "lblcategory";
+			this.lblcategory.Size = new System.Drawing.Size(72, 16);
+			this.lblcategory.TabIndex = 10;
+			this.lblcategory.Text = "Category";
+			// 
+			// cmbcategory
+			// 
+			this.cmbcategory.Font = new System.Drawing.Font("Monospac821 BT", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cmbcategory.FormattingEnabled = true;
+			this.cmbcategory.Location = new System.Drawing.Point(90, 64);
+			this.cmbcategory.Name = "cmbcategory";
+			this.cmbcategory.Size = new System.Drawing.Size(141, 24);
+			this.cmbcategory.TabIndex = 11;
+			this.cmbcategory.SelectedIndexChanged += new System.EventHandler(this.cmbcategory_SelectedIndexChanged);
+			// 
+			// btnall
+			// 
+			this.btnall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnall.Font = new System.Drawing.Font("Monospac821 BT", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnall.Location = new System.Drawing.Point(261, 55);
+			this.btnall.Name = "btnall";
+			this.btnall.Size = new System.Drawing.Size(88, 40);
+			this.btnall.TabIndex = 12;
+			this.btnall.Text = "Show All";
+			this.btnall.UseVisualStyleBackColor = true;
+			this.btnall.Click += new System.EventHandler(this.btnall_Click);
+			// 
+			// frminventory
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.SystemColors.InactiveCaption;
+			this.ClientSize = new System.Drawing.Size(996, 473);
+			this.Controls.Add(this.btnall);
+			this.Controls.Add(this.cmbcategory);
+			this.Controls.Add(this.lblcategory);
+			this.Controls.Add(this.dgvproducts);
+			this.Controls.Add(this.panel1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Name = "frminventory";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "frminventory";
+			this.Load += new System.EventHandler(this.frminventory_Load);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgvproducts)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
+		}
+
+		#endregion
+
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Label titleinventory;
+		private System.Windows.Forms.DataGridView dgvproducts;
+		private System.Windows.Forms.Label lblcategory;
+		private System.Windows.Forms.ComboBox cmbcategory;
+		private System.Windows.Forms.Button btnall;
+	}
+}
+
+    </pre>
+  </body>
+</html>

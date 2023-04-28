@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>DATA ACCESS LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using softdes.BLL;
+
+namespace softdes.DAL
+{
+    class loginDAL
+    {
+        //login database
+        static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+        public bool loginCheck(loginBLL l)
+        {
+            bool isSuccess = false;
+
+            //connecting to database
+            SqlConnection conn = new SqlConnection(myconnstrng);
+            
+
+            try
+            {
+                string sql = "SELECT * FROM usersDB WHERE username = @username AND password = @password AND user_type = @user_type";
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@username", l.username);
+                cmd.Parameters.AddWithValue("@password", l.password);
+                cmd.Parameters.AddWithValue("@user_type", l.user_type);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+
+                adapter.Fill(dt);
+
+                //check
+                if(dt.Rows.Count>0)
+                {
+                    isSuccess = true;
+                }
+                else
+                {
+                    isSuccess = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return isSuccess;
+        }
+    }   
+}
+
+<strong>BUSINESS LOGIC LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace softdes.BLL
+{
+	class loginBLL
+	{
+		public string username { get; set; }
+		public string password { get; set; }
+		public string user_type { get; set; }
+	}
+}
+
+    </pre>
+  </body>
+</html>

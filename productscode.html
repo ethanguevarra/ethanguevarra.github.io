@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>C# Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        font-family: sans-serif;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #ccc;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #444;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+      <header id="header" class="alt">
+        <a href="landing.html" class="logo"><strong>GO BACK TO SCHOOPEE</strong> <span></span></a>
+        <nav>
+          <a href="#menu"></a>
+        </nav>
+      </header>
+
+     
+      </nav>
+
+      <!-- Main Content -->
+      <div id="main">
+    <pre>
+
+
+<strong>DATA ACCESS LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using softdes.BLL;
+
+namespace softdes.DAL
+{
+	class productsDAL
+	{
+		static string myconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+		#region Select method for product module
+		public DataTable Select()
+		{
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			DataTable dt = new DataTable();
+
+			try
+			{
+				String sql = "SELECT * FROM prodsDB";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+				conn.Open();
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return dt;
+		}
+		#endregion
+		#region method to insert product in database
+		public bool Insert(productsBLL p)
+		{
+			bool isSuccess = false;
+
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				String sql = "INSERT INTO prodsDB (name, category, description, rate, qty, added_date, added_by) VALUES (@name, @category, @description, @rate, @qty, @added_date, @added_by)";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+			
+
+				cmd.Parameters.AddWithValue("@name", p.name);
+				cmd.Parameters.AddWithValue("@category", p.category);
+				cmd.Parameters.AddWithValue("@description", p.description);
+				cmd.Parameters.AddWithValue("@rate", p.rate);
+				cmd.Parameters.AddWithValue("@qty", p.qty);
+				cmd.Parameters.AddWithValue("@added_date", p.added_date);
+				cmd.Parameters.AddWithValue("@added_by", p.added_by);
+
+				conn.Open();
+				int rows = cmd.ExecuteNonQuery();
+
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return isSuccess;
+		}
+		#endregion
+		#region method to update product in database
+		public bool Update(productsBLL p)
+		{
+			bool isSuccess = false;
+
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				String sql = "UPDATE prodsDB SET name=@name, category=@category, description=@description, rate=@rate, added_date=@added_date, added_by=@added_by WHERE id=@id";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				cmd.Parameters.AddWithValue("@name", p.name);
+				cmd.Parameters.AddWithValue("@category", p.category);
+				cmd.Parameters.AddWithValue("@description", p.description);
+				cmd.Parameters.AddWithValue("@rate", p.rate);
+				cmd.Parameters.AddWithValue("@qty", p.qty);
+				cmd.Parameters.AddWithValue("@added_date", p.added_date);
+				cmd.Parameters.AddWithValue("@added_by", p.added_by);
+				cmd.Parameters.AddWithValue("@id", p.id);
+
+				conn.Open();
+				int rows = cmd.ExecuteNonQuery();
+
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return isSuccess;
+		}
+		#endregion
+		#region method to delete product in database
+		public bool Delete(productsBLL p)
+		{
+			bool isSuccess = false;
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				String sql = "DELETE FROM prodsDB WHERE id=@id";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				cmd.Parameters.AddWithValue("@id", p.id);
+
+				conn.Open();
+				int rows = cmd.ExecuteNonQuery();
+				if (rows > 0)
+				{
+					isSuccess = true;
+				}
+				else
+				{
+					isSuccess = false;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return isSuccess;
+		}
+
+		#endregion
+		#region Search function
+		public DataTable Search(string keywords)
+		{
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			DataTable dt = new DataTable();
+
+
+			try
+			{
+				string sql = "SELECT * FROM prodsDB WHERE id LIKE '%" + keywords + "%' OR name LIKE '%" + keywords + "%' OR category LIKE '%" + keywords + "%'";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+
+			return dt;
+		}
+		#endregion
+		#region SEARCH METHOD IN PRODUCT TRANSACTION
+		public productsBLL GetProductsForTTransaction(string keyword)
+		{
+			productsBLL p = new productsBLL();
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT name, rate, qty FROM prodsDB WHERE id LIKE '%"+keyword+"%' OR name LIKE '%"+keyword+"%'";
+				SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+				conn.Open();
+				adapter.Fill(dt);
+
+				if (dt.Rows.Count > 0)
+				{
+					p.name = dt.Rows[0]["name"].ToString();
+					p.rate = decimal.Parse(dt.Rows[0]["rate"].ToString());
+					p.qty = decimal.Parse(dt.Rows[0]["qty"].ToString());
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return p;
+		}
+
+
+		#endregion
+		#region METHOD TO GET PRODUCT ID
+		public productsBLL GetProductIDDFromName(string ProductName)
+		{
+			productsBLL p = new productsBLL();
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT id from prodsDB WHERE name='" + ProductName + "'";
+				SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
+				conn.Open();
+				adapter.Fill(dt);
+				if (dt.Rows.Count > 0)
+				{
+					p.id = int.Parse(dt.Rows[0]["id"].ToString());
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return p;
+		}
+
+		#endregion
+		#region CURRENT QUANTITY FROM DB
+		public decimal GetProductQty(int productid)
+		{
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			decimal qty = 0;
+
+			DataTable dt = new DataTable();
+			try
+			{
+				string sql = "SELECT qty FROM prodsDB WHERE id = "+productid;
+				SqlCommand cmd = new SqlCommand(sql,conn);
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+
+				if (dt.Rows.Count > 0)
+				{
+					qty = decimal.Parse(dt.Rows[0]["qty"].ToString());
+				}
+				
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+
+			return qty;
+		}
+
+		#endregion
+		#region UPDATE QUANTITY METHOD
+		public bool UpdateQty(int productid, decimal qty)
+		{
+			bool success = false;
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				string sql = "UPDATE prodsDB SET qty=@qty WHERE id=@id";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+
+				cmd.Parameters.AddWithValue("@qty", qty);
+				cmd.Parameters.AddWithValue("@id", productid);
+				conn.Open();
+
+				int rows = cmd.ExecuteNonQuery();
+				if (rows>0)
+				{
+					success = true;
+				}
+				else
+				{
+					success = false;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+
+
+			return success;
+		}
+
+		#endregion
+		#region INCREASE PRODUCT QTY METHOD
+		public bool IncreaseProduct(int productid, decimal increaseqty)
+		{
+			bool success = false;
+
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				decimal currentqty = GetProductQty(productid);
+				decimal newqty = currentqty + increaseqty;
+
+				success = UpdateQty(productid, newqty);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return success;
+		}
+
+		#endregion
+		#region DECREASE PRODUCT QTY METHOD
+		public bool Decreaseproduct(int productid, decimal qty)
+		{
+			bool success = false;
+			SqlConnection conn = new SqlConnection(myconnstrng);
+
+			try
+			{
+				decimal currentqty = GetProductQty(productid);
+				decimal newqty = currentqty - qty;
+
+				success = UpdateQty(productid, newqty);
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return success;
+		}
+
+
+		#endregion
+		#region DISPLAY PRODUCT CATEGORIES METHOD
+		public DataTable DisplayProductByCateory(string category)
+		{
+			SqlConnection conn = new SqlConnection(myconnstrng);
+			DataTable dt = new DataTable();
+
+			try
+			{
+				string sql = "SELECT * FROM prodsDB WHERE category='"+category+"'";
+				SqlCommand cmd = new SqlCommand(sql, conn);
+				SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+				conn.Open();
+				adapter.Fill(dt);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				conn.Close();
+			}
+
+			return dt;
+		}
+		#endregion
+	}
+}
+
+
+
+<strong>BUSINESS LOGIC LAYER</strong>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace softdes.BLL
+{
+	class productsBLL
+	{
+		public int id { get; set; }
+		public string name { get; set; }
+		public string category { get; set; }
+		public string description { get; set; }
+		public decimal rate { get; set; }
+		public decimal qty { get; set; }
+		public DateTime added_date { get; set; }
+		public int added_by { get; set; }
+
+	}
+}
+
+
+    </pre>
+  </body>
+</html>
